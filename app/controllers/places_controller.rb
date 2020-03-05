@@ -1,6 +1,6 @@
 class PlacesController < ApplicationController
+
     def show
-        @place = Place.find(params[:id])
-        render json: @place
+        render json: PlaceJsonParser.new(Place.find(params[:id])).place_json
     end
 end
