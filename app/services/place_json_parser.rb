@@ -6,10 +6,11 @@ class PlaceJsonParser
         uri = URI(url)
         response = Net::HTTP.get(uri)
         @place_hash = JSON.parse(response)
+        @place = place
     end
 
     def place_json
-        JSON.generate(name: place_name, address: place_address, opening_hours: place_opening_hours)
+        JSON.generate(data: [ { type: 'places', id: @place.id, attributes: { name: place_name, address: place_address, opening_hours: place_opening_hours, created_at: @place.created_at, updated_at: @place.updated_at } } ])
     end
 
     private def place_name
